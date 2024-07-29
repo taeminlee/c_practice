@@ -9,18 +9,20 @@ int get_utf8_char_length(char ch) {
     return 1; // Basic ASCII or invalid UTF-8
 }
 
-int main() {
+int main(void) {
     char greeting_ko[] = "안녕하세요, 세상!\n";
 
     for (int i = 0; greeting_ko[i] != '\0'; i++) {
-        printf("greeting_ko[%d] = %c, 주소 = %p\n", i, greeting_ko[i], (void*)&greeting_ko[i]);
+        printf("greeting_ko[%d] = %c, 주소 = %p\n", i, greeting_ko[i], &greeting_ko[i]);
     }
 
     for (int i = 0; i < strlen(greeting_ko);) {
         int char_len = get_utf8_char_length(greeting_ko[i]);
         printf("문자: ");
-        fwrite(&greeting_ko[i], 1, char_len, stdout);
-        printf(", 주소: %p\n", (void*)&greeting_ko[i]);
+        for (int j = 0; j < char_len; j++) {
+            printf("%c", greeting_ko[i + j]);
+        }
+        printf(", 주소: %p\n", &greeting_ko[i]);
         i += char_len;
     }
 
